@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.2.70
+
+- Network commands like curl are now available for Claude to use
+- Claude can now run multiple web queries in parallel
+- Pressing ESC once immediately interrupts Claude in Auto-accept mode
+
+## 0.2.69
+
+- Fixed UI glitches with improved Select component behavior
+- Enhanced terminal output display with better text truncation logic
+
+## 0.2.67
+
+- Shared project permission rules can be saved in .claude/settings.json
+
+## 0.2.66
+
+- Print mode (-p) now supports streaming output via --output-format --stream-json
+- Fixed issue where pasting could trigger memory or bash mode unexpectedly
+
+## 0.2.63
+
+- Fixed an issue where MCP tools were loaded twice, which caused tool call errors
+
 ## 0.2.61
 
 - Navigate menus with vim-style keys (j/k) or bash/emacs shortcuts (Ctrl+n/p) for faster interaction
