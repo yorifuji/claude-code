@@ -17,7 +17,7 @@
 
 ## 0.2.66
 
-- Print mode (-p) now supports streaming output via --output-format --stream-json
+- Print mode (-p) now supports streaming output via --output-format=stream-json
 - Fixed issue where pasting could trigger memory or bash mode unexpectedly
 
 ## 0.2.63
