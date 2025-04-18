@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.74
+
+- Add support for refreshing dynamically generated API keys (via `apiKeyHelper`), with a 5 minute TTL
+- Task tool can now perform writes and run bash commands
+
+## 0.2.72
+
+- Update spinner to indicate tokens loaded and tool usage
+
 ## 0.2.70
 
 - Network commands like curl are now available for Claude to use
