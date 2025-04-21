@@ -3,8 +3,9 @@
 ## 0.2.75
 
 - Hit Enter to queue up additional messages while Claude is working
-- Drag in or copy/paste image files directly into the prompt 
+- Drag in or copy/paste image files directly into the prompt
 - @-mention files to directly add them to context
+- Run one-off MCP servers with `claude --mcp-config <path-to-file>`
 
 ## 0.2.74
 
