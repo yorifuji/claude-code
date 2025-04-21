@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.75
+
+- Hit Enter to queue up additional messages while Claude is working
+- Drag in or copy/paste image files directly into the prompt 
+- @-mention files to directly add them to context
+
 ## 0.2.74
 
 - Add support for refreshing dynamically generated API keys (via `apiKeyHelper`), with a 5 minute TTL
