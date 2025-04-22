@@ -6,6 +6,7 @@
 - Drag in or copy/paste image files directly into the prompt
 - @-mention files to directly add them to context
 - Run one-off MCP servers with `claude --mcp-config <path-to-file>`
+- Improved performance for filename auto-complete
 
 ## 0.2.74
 
