@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.95
+
+- Claude Code can now also be used with a Claude Max subscription (https://claude.ai/upgrade)
+
 ## 0.2.93
 
 - Resume conversations from where you left off from with "claude --continue" and "claude --resume"
