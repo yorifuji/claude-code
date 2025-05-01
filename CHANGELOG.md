@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.95
+## 0.2.96
 
 - Claude Code can now also be used with a Claude Max subscription (https://claude.ai/upgrade)
 
