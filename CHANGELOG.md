@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.105
+
+- Claude can now search the web
+- Moved system & account status to /status
+- Added word movement keybindings for Vim
+- Improved latency for startup, todo tool, and file edits
+
 ## 0.2.102
 
 - Improved thinking triggering reliability
