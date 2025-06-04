@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.1.0
+## 1.0.10
 
 - Added markdown table support
 - Improved streaming performance
