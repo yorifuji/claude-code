@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.16
+
+- We now emit messages from sub-tasks in -p mode (look for the parent_tool_use_id property)
+
 ## 1.0.11
 
 - Claude Code can now also be used with a Claude Pro subscription
