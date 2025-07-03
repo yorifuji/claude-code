@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
     Automates the setup and connection to a DevContainer environment using either Docker or Podman on Windows.
 
@@ -25,6 +25,7 @@
     └── Script/
         └── run_devcontainer_claude_code.ps1
 #>
+
 [CmdletBinding()]
 param(
     [Parameter(Mandatory=$true)]
@@ -43,7 +44,7 @@ if ($Backend -eq 'podman') {
     # --- Step 1a: Initialize Podman machine ---
     Write-Host "Initializing Podman machine 'claudeVM'..."
     try {
-        podman machine init claudeVM
+        & podman machine init claudeVM
         Write-Host "Podman machine 'claudeVM' initialized or already exists."
     } catch {
         Write-Error "Failed to initialize Podman machine: $($_.Exception.Message)"
@@ -53,7 +54,7 @@ if ($Backend -eq 'podman') {
     # --- Step 1b: Start Podman machine ---
     Write-Host "Starting Podman machine 'claudeVM'..."
     try {
-        podman machine start claudeVM -q
+        & podman machine start claudeVM -q
         Write-Host "Podman machine started or already running."
     } catch {
         Write-Error "Failed to start Podman machine: $($_.Exception.Message)"
@@ -63,7 +64,7 @@ if ($Backend -eq 'podman') {
     # --- Step 2: Set default connection ---
     Write-Host "Setting default Podman connection to 'claudeVM'..."
     try {
-        podman system connection default claudeVM
+        & podman system connection default claudeVM
         Write-Host "Default connection set."
     } catch {
         Write-Warning "Failed to set default Podman connection (may be already set or machine issue): $($_.Exception.Message)"
@@ -87,11 +88,11 @@ if ($Backend -eq 'podman') {
 # --- Step 3: Bring up DevContainer ---
 Write-Host "Bringing up DevContainer in the current folder..."
 try {
-    $devcontainerUpCommand = "devcontainer up --workspace-folder ."
+    $arguments = @('up', '--workspace-folder', '.')
     if ($Backend -eq 'podman') {
-        $devcontainerUpCommand += " --docker-path podman"
+        $arguments += '--docker-path', 'podman'
     }
-    Invoke-Expression $devcontainerUpCommand
+    & devcontainer @arguments
     Write-Host "DevContainer startup process completed."
 } catch {
     Write-Error "Failed to bring up DevContainer: $($_.Exception.Message)"
@@ -102,12 +103,11 @@ try {
 Write-Host "Finding the DevContainer ID..."
 $currentFolder = (Get-Location).Path
 
-$psCommand = "$($Backend) ps --filter ""label=devcontainer.local_folder=$currentFolder"" --format ""{{.ID}}"""
-
 try {
-    $containerId = $(Invoke-Expression $psCommand).Trim()
+    $containerId = (& $Backend ps --filter "label=devcontainer.local_folder=$currentFolder" --format '{{.ID}}').Trim()
 } catch {
-    Write-Error "Failed to get container ID (Command: $psCommand): $($_.Exception.Message)"
+    $displayCommand = "$Backend ps --filter `"label=devcontainer.local_folder=$currentFolder`" --format '{{.ID}}'"
+    Write-Error "Failed to get container ID (Command: $displayCommand): $($_.Exception.Message)"
     exit 1
 }
 
@@ -121,13 +121,11 @@ Write-Host "Found container ID: $containerId"
 # --- Step 5 & 6: Execute command and enter interactive shell inside container ---
 Write-Host "Executing 'claude' command and then starting zsh session inside container $($containerId)..."
 try {
-    $execCommand = "$($Backend) exec -it $containerId zsh -c 'claude; exec zsh'"
-    Invoke-Expression $execCommand
-
+    & $Backend exec -it $containerId zsh -c 'claude; exec zsh'
     Write-Host "Interactive session ended."
-
 } catch {
-    Write-Error "Failed to execute command inside container (Command: $execCommand): $($_.Exception.Message)"
+    $displayCommand = "$Backend exec -it $containerId zsh -c 'claude; exec zsh'"
+    Write-Error "Failed to execute command inside container (Command: $displayCommand): $($_.Exception.Message)"
     exit 1
 }
 
