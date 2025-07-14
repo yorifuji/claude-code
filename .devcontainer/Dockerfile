@@ -5,7 +5,6 @@ ENV TZ="$TZ"
 
 # Install basic development tools and iptables/ipset
 RUN apt update && apt install -y less \
-  git \
   procps \
   sudo \
   fzf \
@@ -20,6 +19,13 @@ RUN apt update && apt install -y less \
   dnsutils \
   aggregate \
   jq
+
+RUN cd /tmp && \
+  curl -O https://www.kernel.org/pub/software/scm/git/git-2.50.1.tar.gz && \
+  tar xzf git-2.50.1.tar.gz && \
+  cd git-2.50.1 && \
+  make prefix=/usr/local NO_GETTEXT=YesPlease NO_TCLTK=YesPlease all && \
+  make prefix=/usr/local NO_GETTEXT=YesPlease NO_TCLTK=YesPlease install
 
 # Ensure default node user has access to /usr/local/share
 RUN mkdir -p /usr/local/share/npm-global && \
